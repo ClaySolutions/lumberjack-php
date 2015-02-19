@@ -54,7 +54,7 @@ class SecureSocket implements SocketInterface
         }
 
         if (!is_numeric($port) || $port < 1 || $port > self::MAX16BIT) {
-            throw new InvalidArgumentException("Parameter 'port' should be between 1 and " . self::MAX16BIT);
+            throw new InvalidArgumentException("Parameter 'port' should be between 1 and ".self::MAX16BIT);
         }
 
         $this->uri = "ssl://{$host}:{$port}";
@@ -277,7 +277,7 @@ class SecureSocket implements SocketInterface
                     throw new Exception(
                         sprintf("Can not write to socket '%s': %s",
                             $this->uri,
-                            'unexpected flow detected. this is a bug. please report this: ' . json_encode($meta)
+                            'unexpected flow detected. this is a bug. please report this: '.json_encode($meta)
                         )
                     );
                 }

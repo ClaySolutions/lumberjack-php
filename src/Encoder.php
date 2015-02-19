@@ -12,7 +12,7 @@ class Encoder implements EncoderInterface
     {
         $frame = $this->toFrame($hash, $sequence);
         $compressedFrame = gzcompress($frame);
-        return pack("AANA" . strlen($compressedFrame), "1", "C", strlen($compressedFrame), $compressedFrame);
+        return pack("AANA".strlen($compressedFrame), "1", "C", strlen($compressedFrame), $compressedFrame);
     }
 
     /**
@@ -77,10 +77,10 @@ class Encoder implements EncoderInterface
     {
         if (is_scalar($value)) {
             if (is_bool($value)) {
-                $value = (int)$value;
+                $value = (int) $value;
             }
 
-            return (string)$value;
+            return (string) $value;
         }
 
         return json_encode($value);
