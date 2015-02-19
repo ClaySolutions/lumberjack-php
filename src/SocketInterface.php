@@ -4,16 +4,6 @@ namespace Ekho\Logstash\Lumberjack;
 interface SocketInterface
 {
     /**
-     * @return string
-     */
-    public function getHost();
-
-    /**
-     * @return int
-     */
-    public function getPort();
-
-    /**
      * @param mixed $buffer
      * @return int
      */
