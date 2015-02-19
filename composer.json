@@ -1,5 +1,5 @@
 {
-  "name": "i-ekho/lumberjack-php",
+  "name": "ekho/lumberjack-php",
   "description": "Logstash lumberjack client",
   "keywords": ["logstash", "lumberjack", "php", "log"],
   "license": "MIT",
