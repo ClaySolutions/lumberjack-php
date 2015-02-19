@@ -265,7 +265,7 @@ class SecureSocket implements SocketInterface
             } elseif ($result === 0) {
                 $meta = stream_get_meta_data($this->socket);
                 if ($meta["timed_out"] === true) {
-                    // todo: reconnect & retry
+                    // todo: #3 reconnect & retry
                     throw new Exception(
                         sprintf("Can not write to socket '%s': %s", $this->uri, 'Connection timed out')
                     );
