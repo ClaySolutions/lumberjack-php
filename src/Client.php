@@ -55,6 +55,9 @@ class Client
         $this->socket->write($buffer);
     }
 
+    /**
+     * @return int
+     */
     private function nextSequence()
     {
         if ($this->sequence + 1 > self::SEQUENCE_MAX) {
@@ -64,6 +67,9 @@ class Client
         return ++$this->sequence;
     }
 
+    /**
+     * @throws \RuntimeException
+     */
     private function ack()
     {
         list(, $type) = $this->readVersionAndType();
@@ -76,11 +82,17 @@ class Client
         }
     }
 
+    /**
+     * @return int
+     */
     private function unackedSequenceSize()
     {
         return $this->sequence - ($this->lastAck + 1);
     }
 
+    /**
+     * @return array
+     */
     private function readVersionAndType()
     {
         $version = $this->socket->read(1);
@@ -88,6 +100,9 @@ class Client
         return array($version, $type);
     }
 
+    /**
+     * @return int
+     */
     private function readLastAck()
     {
         $unpacked = unpack('N', $this->socket->read(4));

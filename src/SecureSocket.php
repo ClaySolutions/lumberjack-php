@@ -4,9 +4,6 @@ namespace Ekho\Logstash\Lumberjack;
 /**
  * Class SecureSocket
  * @package Ekho\Logstash\Lumberjack
- *
- * @todo https://github.com/fluent/fluent-logger-php/blob/5d381ec8259ee92a19445335c7d00432dc46743b/src/Fluent/Logger/FluentLogger.php
- * @todo https://github.com/fluent/fluent-logger-php/blob/master/src/Fluent/Logger/FluentLogger.php
  */
 class SecureSocket implements SocketInterface
 {
@@ -19,7 +16,7 @@ class SecureSocket implements SocketInterface
     /* 1000 means 0.001 sec */
     const USLEEP_WAIT = 1000;
 
-    private static $acceptable_options = array(
+    private static $acceptableOptions = array(
         'socket_timeout',
         'connection_timeout',
         'usleep_wait',
@@ -113,7 +110,7 @@ class SecureSocket implements SocketInterface
 
     /**
      * @param int $length
-     * @return mixed
+     * @return string
      */
     public function read($length)
     {
@@ -127,10 +124,21 @@ class SecureSocket implements SocketInterface
      */
     protected function connect()
     {
-        $connect_options = \STREAM_CLIENT_CONNECT;
+        $connectOptions = \STREAM_CLIENT_CONNECT;
         if ($this->getOption('persistent', false)) {
-            $connect_options |= \STREAM_CLIENT_PERSISTENT;
+            $connectOptions |= \STREAM_CLIENT_PERSISTENT;
         }
+
+        $contextOptions = array(
+            'ssl' => array(
+                'allow_self_signed'   => $this->getOption('ssl_allow_self_signed', false),
+                'verify_peer'         => $this->getOption('ssl_verify_peer', true),
+                'cafile'              => $this->getOption('ssl_cafile'),
+                'peer_name'           => $this->getOption('ssl_peer_name'),
+                'ciphers'             => $this->getOption('ssl_tls_only') ? 'HIGH:!SSLv2:!SSLv3' : 'DEFAULT',
+                'disable_compression' => true,
+            )
+        );
 
         // could not suppress warning without ini setting.
         // for now, we use error control operators.
@@ -139,17 +147,8 @@ class SecureSocket implements SocketInterface
             $errNo,
             $errStr,
             $this->getOption('connection_timeout', self::CONNECTION_TIMEOUT),
-            $connect_options,
-            stream_context_create(array(
-                'ssl' => array(
-                    'allow_self_signed'   => $this->getOption('ssl_allow_self_signed', false),
-                    'verify_peer'         => $this->getOption('ssl_verify_peer', true),
-                    'cafile'              => $this->getOption('ssl_cafile'),
-                    'peer_name'           => $this->getOption('peer_name'),
-                    'ciphers'             => $this->getOption('ssl_tls_only') ? 'HIGH:!SSLv2:!SSLv3' : 'DEFAULT',
-                    'disable_compression' => true,
-                )
-            ))
+            $connectOptions,
+            stream_context_create($contextOptions)
         );
 
         if (!$socket) {
@@ -159,7 +158,7 @@ class SecureSocket implements SocketInterface
         // set read / write timeout.
         stream_set_timeout($socket, $this->getOption('socket_timeout', self::SOCKET_TIMEOUT));
 
-        return $socket;
+        $this->socket = $socket;
     }
 
     /**
@@ -171,7 +170,7 @@ class SecureSocket implements SocketInterface
     private function mergeOptions(array $options)
     {
         foreach ($options as $key => $value) {
-            if (!in_array($key, self::$acceptable_options)) {
+            if (!in_array($key, self::$acceptableOptions)) {
                 throw new \InvalidArgumentException("Option '{$key}' does not supported");
             }
             $this->options[$key] = $value;
@@ -191,12 +190,16 @@ class SecureSocket implements SocketInterface
             || !is_file($this->options['ssl_cafile'])
             || !is_readable($this->options['ssl_cafile'])
         ) {
-            throw new \InvalidArgumentException("Option 'ssl_cafile' contains invalid path '{$this->options['ssl_cafile']}'");
+            throw new \InvalidArgumentException(
+                "Option 'ssl_cafile' contains invalid path '{$this->options['ssl_cafile']}'"
+            );
         }
 
         $certInfo = openssl_x509_parse(file_get_contents($this->options['ssl_cafile']));
         if (!is_array($certInfo)) {
-            throw new \InvalidArgumentException("Option 'ssl_cafile' contains path '{$this->options['ssl_cafile']}' to invalid certificate");
+            throw new \InvalidArgumentException(
+                "Option 'ssl_cafile' contains path '{$this->options['ssl_cafile']}' to invalid certificate"
+            );
         }
 
         if (!isset($this->options['ssl_peer_name'])) {
@@ -207,8 +210,8 @@ class SecureSocket implements SocketInterface
     /**
      * get specified option's value
      *
-     * @param $key
-     * @param null $default
+     * @param string $key
+     * @param mixed $default
      * @return mixed
      */
     private function getOption($key, $default = null)

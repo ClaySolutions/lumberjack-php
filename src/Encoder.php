@@ -29,16 +29,16 @@ class Encoder implements EncoderInterface
         $pack .= "N";
         foreach ($keys as $k) {
             $val = $this->deepGet($hash, $k);
-            $key_length = strlen($k);
-            $val_length = strlen($val);
-            array_push($frame, $key_length);
+            $keyLength = strlen($k);
+            $valLength = strlen($val);
+            array_push($frame, $keyLength);
             $pack .= "N";
             array_push($frame, $k);
-            $pack .= "A{$key_length}";
-            array_push($frame, $val_length);
+            $pack .= "A{$keyLength}";
+            array_push($frame, $valLength);
             $pack .= "N";
             array_push($frame, $val);
-            $pack .= "A{$val_length}";
+            $pack .= "A{$valLength}";
         }
         array_unshift($frame, $pack);
         return call_user_func_array('pack', $frame);
