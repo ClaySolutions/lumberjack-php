@@ -4,6 +4,7 @@ Logstash lumberjack client - ported ruby client to php [![Build Status](https://
 [![Latest Stable Version](https://poser.pugx.org/i-ekho/lumberjack-php/v/stable.svg)](https://packagist.org/packages/i-ekho/lumberjack-php)
 [![Total Downloads](https://poser.pugx.org/i-ekho/lumberjack-php/downloads.svg)](https://packagist.org/packages/i-ekho/lumberjack-php)
 [![Latest Unstable Version](https://poser.pugx.org/i-ekho/lumberjack-php/v/unstable.svg)](https://packagist.org/packages/i-ekho/lumberjack-php)
+[![Dependency Status](https://www.versioneye.com/user/projects/54e5e424d1ec5734f400095f/badge.svg?style=flat)](https://www.versioneye.com/user/projects/54e5e424d1ec5734f400095f)
 [![License](https://poser.pugx.org/i-ekho/lumberjack-php/license.svg)](https://packagist.org/packages/i-ekho/lumberjack-php)
 
 ## Installing
