@@ -113,7 +113,7 @@ class SecureSocket implements SocketInterface
 
     /**
      * @param int $length
-     * @return mixed
+     * @return string
      */
     public function read($length)
     {
@@ -207,7 +207,7 @@ class SecureSocket implements SocketInterface
     /**
      * get specified option's value
      *
-     * @param $key
+     * @param string $key
      * @param null $default
      * @return mixed
      */
