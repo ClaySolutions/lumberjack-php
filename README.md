@@ -6,7 +6,7 @@
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/ekho/lumberjack-php.svg?style=flat-square)](https://scrutinizer-ci.com/g/ekho/lumberjack-php/)
 [![Coverage Status](https://coveralls.io/repos/ekho/lumberjack-php/badge.svg?style=flat-square)](https://coveralls.io/r/ekho/lumberjack-php)
 [![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/ekho/lumberjack-php.svg?style=flat-square)](https://scrutinizer-ci.com/g/ekho/lumberjack-php/)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/8460de87-ad48-4b76-b21d-348837793984/mini.png)](https://insight.sensiolabs.com/projects/8460de87-ad48-4b76-b21d-348837793984)
+[![SensioLabsInsight](https://img.shields.io/sensiolabs/i/8460de87-ad48-4b76-b21d-348837793984.svg?style=flat-square)](https://insight.sensiolabs.com/projects/8460de87-ad48-4b76-b21d-348837793984)
 [![Dependency Status](https://www.versioneye.com/user/projects/54e61782d1ec573c9900070a/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/54e61782d1ec573c9900070a)
 [![HHVM Status](https://img.shields.io/hhvm/ekho/lumberjack-php.svg?style=flat-square)](http://hhvm.h4cc.de/package/ekho/lumberjack-php)
 
