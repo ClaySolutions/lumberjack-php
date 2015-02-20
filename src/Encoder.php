@@ -55,6 +55,10 @@ class Encoder implements EncoderInterface
             return $this->stringifyValue($hash);
         }
 
+        if (is_array($hash) && array_key_exists($key, $hash)) {
+            return $this->stringifyValue($hash[$key]);
+        }
+
         if (strpos($key, '.') === false) {
             if (!is_array($hash) || !array_key_exists($key, $hash)) {
                 return null;

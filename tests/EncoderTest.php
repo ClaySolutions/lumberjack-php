@@ -57,8 +57,9 @@ class EncoderTest extends \PHPUnit_Framework_TestCase
     public function testDeepGet()
     {
         $testData = array(
-            'a' => 1,
-            'b' => array('c' => 2),
+            'a'   => 1,
+            'b'   => array('c' => 2),
+            'e.f' => 3,
         );
 
         $refClass = new \ReflectionClass($this->instance);
@@ -85,6 +86,11 @@ class EncoderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNull(
             $refMethod->invoke($this->instance, $testData, 'd')
+        );
+
+        $this->assertEquals(
+            $testData['e.f'],
+            $refMethod->invoke($this->instance, $testData, 'e.f')
         );
 
         $refMethod->setAccessible(false);
