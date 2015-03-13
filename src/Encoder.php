@@ -103,7 +103,7 @@ class Encoder implements EncoderInterface
                 array_push($keys, "{$prefix}{$k}");
             }
             if (is_array($v)) {
-                $keys = array_merge($keys, $this->deepKeys($hash[$k], "{$k}."));
+                $keys = array_merge($keys, $this->deepKeys($hash[$k], "{$prefix}{$k}."));
             }
         }
 
