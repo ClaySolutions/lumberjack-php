@@ -66,11 +66,10 @@ class Encoder implements EncoderInterface
 
             return $this->stringifyValue($hash[$key]);
         }
+        
+        list($key, $subkey) = explode('.', $key, 2);
 
-        $subkey = ltrim(strstr($key, '.'), '.');
-        $key = strstr($key, '.', true);
-
-        return $this->deepGet($hash[$key], $subkey);
+        return isset($hash[$key]) ? $this->deepGet($hash[$key], $subkey) : null;
     }
 
     /**
