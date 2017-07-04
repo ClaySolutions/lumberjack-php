@@ -23,6 +23,7 @@ class SecureSocket implements SocketInterface
         'ssl_peer_name',
         'ssl_disable_compression',
         'ssl_tls_only',
+        'ssl_verify_peer_name',
     );
 
     private $options = array(
@@ -124,6 +125,7 @@ class SecureSocket implements SocketInterface
             'ssl' => array(
                 'allow_self_signed'   => $this->getOption('ssl_allow_self_signed', false),
                 'verify_peer'         => $this->getOption('ssl_verify_peer', true),
+                'verify_peer_name'    => $this->getOption('ssl_verify_peer_name', true),
                 'cafile'              => $this->getOption('ssl_cafile'),
                 'peer_name'           => $this->getOption('ssl_peer_name'),
                 'ciphers'             => $this->getOption('ssl_tls_only') ? 'HIGH:!SSLv2:!SSLv3' : 'DEFAULT',
